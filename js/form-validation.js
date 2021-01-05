@@ -1,5 +1,20 @@
-$(function() {
+var orderType;
+var retHTML;
+var state;
 
+
+
+$(function() {
+   
+   $('input[type=radio][name=paymenttype]').change( function(){
+	alert('radio change');
+	$('#orderamount').html(getOrderAmountHTML());
+   });
+   $('#state').change( function(){
+	alert('select change');
+	$('#orderamount').html(getOrderAmountHTML());
+   });
+   
   // Initialize form validation on the registration form.
   // It has the name attribute "registration"
   $("form[name='registration']").validate({
@@ -57,11 +72,11 @@ $(function() {
     // in the "action" attribute of the form when valid
     submitHandler: function(form) {
     	//var btnClicked = $(document.activeElement).val();
-    	var btnClicked = $("input[name='paymenttype']:checked").val();
-    	alert(btnClicked);
+    	orderType = $("input[name='paymenttype']:checked").val();
+    	alert(orderType);
     	//Insert order details into DB
     	var formData = $("form[name='registration']").serializeArray();
-    	formData.push({name: "order_type", value: btnClicked});
+    	formData.push({name: "order_type", value: orderType});
     	//console.log(formData);
     	//console.log('ppp');
     	
@@ -73,8 +88,8 @@ $(function() {
 	    	    console.log(value);
 	    	    retArr = value.split(':');
 		    if(retArr[0] == 'success'){
-			    if(btnClicked=='COD' || btnClicked=='online'){
-		    		if(btnClicked=='online'){
+			    if(orderType=='COD' || orderType=='online'){
+		    		if(orderType=='online'){
 			    		//console.log('razorpay payment page redirect');
 			    		window.location.href = 'razorpay-php-testapp-master/pay.php?checkout=automatic&orderid='+retArr[1];
 		    		}
@@ -101,11 +116,37 @@ $(function() {
     }
   });
   
-  alert('gggg');
+
   //Order Summary Filling
-  $('#orderamount').html('MRP:'+mrp+'<br/>'+'SP:'+sp+'<br/>'+'CGST:'+cgstPrecent+'<br/>'+'SGST:');
+  orderType = $("input[name='paymenttype']:checked").val();
+  state = $('#state').find(":selected").val();
+  $('#orderamount').html(getOrderAmountHTML());
   
   
 });
 
-
+function getOrderAmountHTML(){
+	retHTML = '<div>Normal Price: '+mrp+'</div>';
+	retHTML += '<div>Offer Price : '+sp+'</div>';
+	total = sp;
+	orderType = $("input[name='paymenttype']:checked").val();
+	if(orderType == 'COD'){
+		retHTML += '<div>Cash on delivery charges : '+codCharges+'</div>';
+		total += codCharges;
+	}
+	state = $('#state').find(":selected").val();
+	if(state == 'Karnataka'){
+		retHTML += '<div>'+cgstPercent+'% CGST : '+cgstAmount+'</div>';
+		retHTML += '<div>'+sgstPercent+'% SGST : '+sgstAmount+'</div>';
+		total += cgstAmount+sgstAmount;
+	}
+	else{
+		retHTML += '<div>'+igstPercent+'% IGST : '+igstAmount+'</div>';
+		total += igstAmount;
+	}
+	
+	retHTML += '<div>Total : '+total+'</div>';
+	return retHTML;
+	
+	
+}

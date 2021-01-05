@@ -13,13 +13,17 @@
 	$db = new db($dbhost, $dbuser, $dbpass, $dbname);
 	//echo 'bbb';die;
 	$productDetails = $db->query('SELECT * FROM wn_product_price WHERE product_name="handwritingkit"')->fetchArray();
-	print_r($productDetails);
+	//print_r($productDetails);
 	$mrp = $productDetails['product_mrp'];
 	$sp = $productDetails['product_sp'];
 	$codCharges = $productDetails['product_cod_charges'];
-	$gstPrecent = $productDetails['product_gst_percentage'];
+	$igstPercent = $productDetails['product_igst_percentage'];
 	$sgstPercent = $productDetails['product_sgst_percentage'];
-	$cgstPrecent = $productDetails['product_cgst_percentage'];
+	$cgstPercent = $productDetails['product_cgst_percentage'];
+	$igstAmount = round($sp*$igstPercent/100,2);
+	$sgstAmount = round($sp*$sgstPercent/100,2);
+	$cgstAmount = round($sp*$cgstPercent/100,2);
+	
 ?>
 
 
@@ -42,9 +46,12 @@
     	var mrp = <?php echo $mrp; ?>;
     	var sp = <?php echo $sp; ?>;
     	var codCharges = <?php echo $codCharges; ?>;
-    	var gstPrecent = <?php echo $gstPrecent; ?>;
+    	var igstPercent = <?php echo $igstPercent; ?>;
     	var sgstPercent = <?php echo $sgstPercent; ?>;
-    	var cgstPrecent = <?php echo $cgstPrecent; ?>;
+    	var cgstPercent = <?php echo $cgstPercent; ?>;
+    	var igstAmount = <?php echo $igstAmount; ?>;
+    	var sgstAmount = <?php echo $sgstAmount; ?>;
+    	var cgstAmount = <?php echo $cgstAmount; ?>;
     </script>
 
         
