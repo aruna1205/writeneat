@@ -1,18 +1,20 @@
 <?php
+
 	ini_set('display_errors', 1);
 	//echo 'hhh';die;
-	require_once('includes/db.php');
+	require_once('../includes/db.php');
+	session_start();
 
 	
-	/*$dbhost = 'localhost';
+	$dbhost = 'localhost';
 	$dbuser = 'root';
 	$dbpass = 'rittal';
-	$dbname = 'write_neat';*/
+	$dbname = 'write_neat';
 	//echo 'aaa';die;
 	$db = new db();
 	//echo 'bbb';die;
-	$account = $db->query('SELECT * FROM wn_user_order')->fetchArray();
-	//print_r($account);
+	$ordeDetails = $db->query('SELECT * FROM wn_user_order WHERE order_id="'.$_SESSION['order_id'].'"')->fetchArray();
+	print_r($ordeDetails);
 
 
 
@@ -23,10 +25,10 @@
 
 
 <?php
-ini_set('display_errors', 1);
+//ini_set('display_errors', 1);
 require('config.php');
 require('razorpay-php/Razorpay.php');
-session_start();
+
 
 // Create the Razorpay Order
 
@@ -67,21 +69,26 @@ if (isset($_GET['checkout']) and in_array($_GET['checkout'], ['automatic', 'manu
 {
     $checkout = $_GET['checkout'];
 }
+$name = $ordeDetails['name'];
+$email = $ordeDetails['email'];
+$phone = $ordeDetails['phone'];
+$state = $ordeDetails['state'];
+$order_id = $ordeDetails['order_id'];
 
 $data = [
     "key"               => $keyId,
     "amount"            => $amount,
     "name"              => "Writeneat",//company name
     "description"       => "Handwriting Improvement Kit",//company description
-    "image"             => "https://s29.postimg.org/r6dj1g85z/daft_punk.jpg",//company logo
+    "image"             => "$baseUrl/images/icon_1.png",//company logo
     "prefill"           => [
-    "name"              => "Arun",//user name
-    "email"             => "arun@merchant.com",//user email
-    "contact"           => "9900139294",//user contact number
+    "name"              => "$name",//user name
+    "email"             => "$email",//user email
+    "contact"           => "$phone",//user contact number
     ],
     "notes"             => [
-    "address"           => "NS Halli, Bangalore 94",
-    "merchant_order_id" => "writeneat_id-",
+    "address"           => "$state",
+    "merchant_order_id" => "writeneat_id-$order_id",
     ],
     "theme"             => [
     "color"             => "#F37254"

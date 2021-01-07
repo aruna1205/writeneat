@@ -1,12 +1,12 @@
 var orderType;
 var retHTML;
 var state;
-
+var total;
 
 
 $(function() {
    
-   $('input[type=radio][name=paymenttype]').change( function(){
+   $('input[type=radio][name=order_type]').change( function(){
 	alert('radio change');
 	$('#orderamount').html(getOrderAmountHTML());
    });
@@ -72,11 +72,12 @@ $(function() {
     // in the "action" attribute of the form when valid
     submitHandler: function(form) {
     	//var btnClicked = $(document.activeElement).val();
-    	orderType = $("input[name='paymenttype']:checked").val();
+    	orderType = $("input[name='order_type']:checked").val();
     	alert(orderType);
     	//Insert order details into DB
     	var formData = $("form[name='registration']").serializeArray();
     	formData.push({name: "order_type", value: orderType});
+    	formData.push({name: "order_amount", value: total});
     	//console.log(formData);
     	//console.log('ppp');
     	
@@ -119,7 +120,7 @@ $(function() {
 
   //Order Summary Filling
   orderType = $("input[name='paymenttype']:checked").val();
-  state = $('#state').find(":selected").val();
+  //state = $('#state').find(":selected").val();
   $('#orderamount').html(getOrderAmountHTML());
   
   
@@ -129,7 +130,7 @@ function getOrderAmountHTML(){
 	retHTML = '<div>Normal Price: '+mrp+'</div>';
 	retHTML += '<div>Offer Price : '+sp+'</div>';
 	total = sp;
-	orderType = $("input[name='paymenttype']:checked").val();
+	orderType = $("input[name='order_type']:checked").val();
 	if(orderType == 'COD'){
 		retHTML += '<div>Cash on delivery charges : '+codCharges+'</div>';
 		total += codCharges;

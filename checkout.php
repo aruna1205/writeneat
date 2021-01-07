@@ -131,9 +131,9 @@
 		    	
 		    </div>
 		    <br />
-	            <label style="background-color:#0aa"><input type="radio" checked="checked" name="paymenttype" value="COD" style="height:16px; width:5%;" />Cash On Delivery</label> 
+	            <label style="background-color:#0aa"><input type="radio" checked="checked" name="order_type" value="COD" style="height:16px; width:5%;" />Cash On Delivery</label> 
 	            <br />
-                    <label style="background-color:#0aa"><input type="radio" name="paymenttype" value="online" style="height:16px; width:5%;" />Online</label>
+                    <label style="background-color:#0aa"><input type="radio" name="order_type" value="online" style="height:16px; width:5%;" />Online</label>
 
 		    <button type="submit" value="Get Value">Place Order</button>
 
