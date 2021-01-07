@@ -17,8 +17,12 @@
 	print_r($ordeDetails);
 
 
-
-
+$name = $ordeDetails['name'];
+$email = $ordeDetails['email'];
+$phone = $ordeDetails['phone'];
+$state = $ordeDetails['state'];
+$order_id = $ordeDetails['order_id'];
+$order_amount = $ordeDetails['order_amount'];
 
 ?>
 
@@ -41,8 +45,8 @@ $api = new Api($keyId, $keySecret);
 // Docs: https://docs.razorpay.com/docs/orders
 //
 $orderData = [
-    'receipt'         => 3456,//order id for our reference
-    'amount'          => 2000 * 100, // 2000 rupees in paise
+    'receipt'         => $order_id,//order id for our reference
+    'amount'          => $order_amount * 100, // converting to paise
     'currency'        => 'INR',
     'payment_capture' => 1 // auto capture
 ];
@@ -69,11 +73,7 @@ if (isset($_GET['checkout']) and in_array($_GET['checkout'], ['automatic', 'manu
 {
     $checkout = $_GET['checkout'];
 }
-$name = $ordeDetails['name'];
-$email = $ordeDetails['email'];
-$phone = $ordeDetails['phone'];
-$state = $ordeDetails['state'];
-$order_id = $ordeDetails['order_id'];
+
 
 $data = [
     "key"               => $keyId,

@@ -42,6 +42,8 @@ if ($success === true)
 {
     $html = "<p>Your payment was successful</p>
              <p>Payment ID: {$_POST['razorpay_payment_id']}</p>";
+             header("Location: $baseUrl/ordersuccess.php");
+	    exit();
 }
 else
 {
@@ -50,4 +52,3 @@ else
 }
 
 echo $html;
-echo   "<a href='/razorpay-php-testapp-master'>Home</a>";
