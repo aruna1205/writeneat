@@ -7,11 +7,11 @@ var total;
 $(function() {
    
    $('input[type=radio][name=order_type]').change( function(){
-	alert('radio change');
+	//alert('radio change');
 	$('#orderamount').html(getOrderAmountHTML());
    });
    $('#state').change( function(){
-	alert('select change');
+	//alert('select change');
 	$('#orderamount').html(getOrderAmountHTML());
    });
    
@@ -73,7 +73,7 @@ $(function() {
     submitHandler: function(form) {
     	//var btnClicked = $(document.activeElement).val();
     	orderType = $("input[name='order_type']:checked").val();
-    	alert(orderType);
+    	//alert(orderType);
     	//Insert order details into DB
     	var formData = $("form[name='registration']").serializeArray();
     	formData.push({name: "order_type", value: orderType});
@@ -102,7 +102,7 @@ $(function() {
 		    
 		    }
 		    else{
-		    	console.log(retArr[1]);
+		    	//console.log(retArr[1]);
 		    	$("#message").html("There was an error placing your order. Please try again later.");
 		    	//$("#message").html(value);
 		    }

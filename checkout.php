@@ -4,13 +4,9 @@
 	//echo 'hhh';die;
 	require_once('includes/db.php');
 	session_start();
-	
-	$dbhost = 'localhost';
-	$dbuser = 'root';
-	$dbpass = 'rittal';
-	$dbname = 'write_neat';
+
 	//echo 'aaa';die;
-	$db = new db($dbhost, $dbuser, $dbpass, $dbname);
+	$db = new db();
 	//echo 'bbb';die;
 	$productDetails = $db->query('SELECT * FROM wn_product_price WHERE product_name="handwritingkit"')->fetchArray();
 	//print_r($productDetails);
@@ -35,7 +31,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
   <head>
-    <title>Writeneat - Handwriting Improvement Kit</title>
+    <title>Writeneat - Handwriting Improvement Kit - Checkout</title>
     <link rel="stylesheet" href="css/style.css"/>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

@@ -5,16 +5,11 @@
 	require_once('../includes/db.php');
 	session_start();
 
-	
-	$dbhost = 'localhost';
-	$dbuser = 'root';
-	$dbpass = 'rittal';
-	$dbname = 'write_neat';
 	//echo 'aaa';die;
 	$db = new db();
 	//echo 'bbb';die;
 	$ordeDetails = $db->query('SELECT * FROM wn_user_order WHERE order_id="'.$_SESSION['order_id'].'"')->fetchArray();
-	print_r($ordeDetails);
+	//print_r($ordeDetails);
 
 
 $name = $ordeDetails['name'];

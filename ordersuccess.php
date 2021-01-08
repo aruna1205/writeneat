@@ -4,10 +4,7 @@
 	require_once('includes/db.php');
 	session_start();
 	
-	/*$dbhost = 'localhost';
-	$dbuser = 'root';
-	$dbpass = 'rittal';
-	$dbname = 'write_neat';*/
+
 	//echo 'aaa';die;
 	$db = new db();
 	//echo 'bbb';die;
@@ -28,7 +25,7 @@
   -->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Order Confirmation</title>
+    <title>Writeneat - Handwriting Improvement Kit - Order Confirmation</title>
     <style type="text/css" media="screen">
   * {
     margin: 0px 0px 0px 0px;

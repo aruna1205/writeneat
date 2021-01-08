@@ -11,8 +11,8 @@ use Razorpay\Api\Errors\SignatureVerificationError;
 $success = true;
 
 $error = "Payment Failed";
-echo('<pre>');
-var_dump($_POST);
+//echo('<pre>');
+//var_dump($_POST);
 
 if (empty($_POST['razorpay_payment_id']) === false)
 {
