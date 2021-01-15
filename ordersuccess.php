@@ -1,16 +1,17 @@
 <?php
 	ini_set('display_errors', 1);
-	//echo 'hhh';die;
-	require_once('includes/db.php');
 	session_start();
-	
 
-	//echo 'aaa';die;
-	$db = new db();
-	//echo 'bbb';die;
-	//print_r($_SESSION);die;
-	$count = $db->query('UPDATE wn_user_order SET order_status="SUCCESS" where order_id="'.$_SESSION['order_id'].'"')->affectedRows();
-	//print_r($count);
+	require_once('includes/common.php');
+	$common = new common();
+	$orderDetails = $common->getOrderDetails();
+	
+	$count = $common->updateOrderStatus($orderStatus="SUCCESS");
+	
+	
+	
+	
+	//mail( 'email4arun@gmail.com', 'Writeneat Demo', 'Your Order has been placed. Thank you' );
 
 ?>
 
@@ -208,7 +209,29 @@
     </style>
   </head>
   <body>
-	Your order has been placed successfully with order number <b><?php echo $_SESSION['order_id'];?></b>.
+	Thank you for your order. Your order number is <b><?php echo $_SESSION['order_id'];?></b>.
+	<br/>
+	Your order will be sent to:
+	<b><?php echo $orderDetails['name']; ?><br/>
+	<b><?php echo $orderDetails['address']; ?><br/>
+	<b><?php echo $orderDetails['city']; ?><br/>
+	<b><?php echo $orderDetails['state']; ?><br/>
+	<b><?php echo $orderDetails['pincode']; ?><br/>
+	<b><?php echo $orderDetails['phone']; ?><br/>
+	
+	
+	<table>
+		<tr><th>Order Summary</th></tr>
+		<tr>
+			<td>Item Subtotal:</td> <td><?php echo $orderDetails['order_amount']; ?></td>
+		</tr>
+		<tr>
+			<td>Shipping & Handling:</td> <td>Free</td>
+		</tr>
+		<tr>
+			<td>Order Total:</td> <td><?php echo $orderDetails['order_amount']; ?></td>
+		</tr>
+	</table>
 	<br/>
 	<a href='landing.php'>Home</a>
   </body>

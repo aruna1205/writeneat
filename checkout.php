@@ -1,14 +1,12 @@
 <?php
 	ini_set('display_errors', 1);
-	//ini_set('session.auto_start', 1);
-	//echo 'hhh';die;
-	require_once('includes/db.php');
+
+	require_once('includes/common.php');
 	session_start();
 
-	//echo 'aaa';die;
-	$db = new db();
-	//echo 'bbb';die;
-	$productDetails = $db->query('SELECT * FROM wn_product_price WHERE product_name="handwritingkit"')->fetchArray();
+	$common = new common();
+
+	$productDetails = $common->getProductDetails();
 	//print_r($productDetails);
 	$mrp = $productDetails['product_mrp'];
 	$sp = $productDetails['product_sp'];

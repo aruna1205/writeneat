@@ -1,23 +1,21 @@
 <?php
 
 	ini_set('display_errors', 1);
-	//echo 'hhh';die;
-	require_once('../includes/db.php');
+
+	require_once('../includes/common.php');
 	session_start();
 
-	//echo 'aaa';die;
-	$db = new db();
-	//echo 'bbb';die;
-	$ordeDetails = $db->query('SELECT * FROM wn_user_order WHERE order_id="'.$_SESSION['order_id'].'"')->fetchArray();
-	//print_r($ordeDetails);
+	$common = new common();
+	$orderDetails = $common->getOrderDetails();
+	print_r($orderDetails);
 
 
-$name = $ordeDetails['name'];
-$email = $ordeDetails['email'];
-$phone = $ordeDetails['phone'];
-$state = $ordeDetails['state'];
-$order_id = $ordeDetails['order_id'];
-$order_amount = $ordeDetails['order_amount'];
+	$name = $orderDetails['name'];
+	$email = $orderDetails['email'];
+	$phone = $orderDetails['phone'];
+	$state = $orderDetails['state'];
+	$order_id = $orderDetails['order_id'];
+	$order_amount = $orderDetails['order_amount'];
 
 ?>
 
