@@ -7,11 +7,9 @@ var total;
 $(function() {
    
    $('input[type=radio][name=order_type]').change( function(){
-	//alert('radio change');
 	$('#orderamount').html(getOrderAmountHTML());
    });
    $('#state').change( function(){
-	//alert('select change');
 	$('#orderamount').html(getOrderAmountHTML());
    });
    
@@ -78,15 +76,13 @@ $(function() {
     	var formData = $("form[name='registration']").serializeArray();
     	formData.push({name: "order_type", value: orderType});
     	formData.push({name: "order_amount", value: total});
-    	//console.log(formData);
-    	//console.log('ppp');
     	
     	$.ajax({  
 	    type: "POST",  
 	    url: "includes/insertorderdetails.php",  
 	    data: formData,  
 	    success: function(value) {
-	    	    console.log(value);
+	    	    value = value.trim();
 	    	    retArr = value.split(':');
 		    if(retArr[0] == 'success'){
 			    if(orderType=='COD' || orderType=='online'){
@@ -95,24 +91,20 @@ $(function() {
 			    		window.location.href = 'razorpay-php-testapp-master/pay.php?checkout=automatic&orderid='+retArr[1];
 		    		}
 		    		else{
-		    			console.log('COD success page redirect');
+		    			//console.log('COD success page redirect');
 		    			window.location.href = 'ordersuccess.php';
 		    	    	}
 		    	    }
 		    
 		    }
 		    else{
-		    	//console.log(retArr[1]);
+		    	console.log(retArr[1]);
 		    	$("#message").html("There was an error placing your order. Please try again later.");
 		    	//$("#message").html(value);
 		    }
 	    }
 	});
-    	
-    	//var val = $("button[type=submit][clicked=true]");
-    	//var btnClicked = $(document.activeElement).val();
-    	
-    	
+
 
     }
   });

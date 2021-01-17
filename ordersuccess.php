@@ -234,7 +234,7 @@
 		</tr>
 	</table>
 	<br/>
-	<a href='landing.php'>Home</a>
+	<a href='index.php'>Home</a>
   </body>
 </html>
 

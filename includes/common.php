@@ -63,32 +63,32 @@ class common {
 		$header .= "Content-type: text/html\r\n"; 
 		
 		$to = $orderDetails['email'];
-		$subject = "Order Confirmation- Order Id: $orderDetails['order_id']";
+		$subject = "Order Confirmation- Order Id: ".$orderDetails['order_id'];
 
 		$message = "<h1>Thank you for your order.</h1>";
-		$message .= "<b>Your order <$orderDetails['order_id']> has been placed successfully.</b>";
+		$message .= "<b>Your order <".$orderDetails['order_id']."> has been placed successfully.</b>";
 		
 		$message .= "<div>";
 		$message .= "Your order will be sent to:<br/>";
-		$message .= "<b>$orderDetails['name']<br/>";
-		$message .= "<b>$orderDetails['address']<br/>";
-		$message .= "<b>$orderDetails['city']<br/>";
-		$message .= "<b>$orderDetails['state']<br/>";
-		$message .= "<b>$orderDetails['pincode']<br/>";
-		$message .= "<b>Ph:$orderDetails['phone']<br/>";
+		$message .= "<b>".$orderDetails['name']."<br/>";
+		$message .= "<b>".$orderDetails['address']."<br/>";
+		$message .= "<b>".$orderDetails['city']."<br/>";
+		$message .= "<b>".$orderDetails['state']."<br/>";
+		$message .= "<b>".$orderDetails['pincode']."<br/>";
+		$message .= "<b>Ph:".$orderDetails['phone']."<br/>";
 
 		$message .= "</div>";
 		$message .= "<br/><br/>";
 		$message .= "<table>
 				<tr><th>Order Summary</th></tr>
 				<tr>
-					<td>Item Subtotal:</td> <td>$orderDetails['order_amount']</td>
+					<td>Item Subtotal:</td> <td>".$orderDetails['order_amount']."</td>
 				</tr>
 				<tr>
 					<td>Shipping & Handling:</td> <td>Free</td>
 				</tr>
 				<tr>
-					<td>Order Total:</td> <td>$orderDetails['order_amount']</td>
+					<td>Order Total:</td> <td>".$orderDetails['order_amount']."</td>
 				</tr>
 			</table>
 			<br/>";
@@ -111,3 +111,4 @@ class common {
 
 }
 ?>
+
