@@ -1,23 +1,72 @@
 <!--  The entire list of Checkout fields is available at
  https://docs.razorpay.com/docs/checkout-form#checkout-fields -->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Payment Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writeneat - Handwriting Improvement Kit- Payment</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+.menu {
+  float:left;
+  width:20%;
+  text-align:center;
+}
+.menu a {
+  background-color:#e5e5e5;
+  padding:8px;
+  margin-top:7px;
+  display:block;
+  width:100%;
+  color:black;
+}
+.main {
+  float:left;
+  width:60%;
+  padding:0 20px;
+}
+.right {
+  background-color:#e5e5e5;
+  float:left;
+  width:20%;
+  padding:15px;
+  margin-top:7px;
+  text-align:center;
+}
 
-	<?php echo $common->getFBTrackingScript();?>
+@media only screen and (max-width:620px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width:100%;
+  }
+}
+</style>
+
+<?php echo $common->getFBTrackingScript();?>
+
 </head>
+<body style="font-family:Verdana;color:#aaaaaa;">
+<script>
+	fbq('track', 'InitiateCheckout', {currency: "INR", value: <?php echo $order_amount; ?>});
+</script>
+<div style="background-color:#e5e5e5;padding:15px;text-align:center;">
+  <h1>Hello World</h1>
+</div>
 
-<body>
-	
-	<script>
-		fbq('track', 'InitiateCheckout', {currency: "INR", value: <?php echo $order_amount; ?>});
-	</script>
-	<div>Header</div>
-	<form action="verify.php" method="POST">
+<div style="overflow:auto">
+  <div class="menu">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+    <a href="#">Link 4</a>
+  </div>
+
+  <div class="main">
+  	<h2>Lorum Ipsum</h2>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+    <form action="verify.php" method="POST">
 	  <script
 	    src="https://checkout.razorpay.com/v1/checkout.js"
 	    data-key="<?php echo $data['key']?>"
@@ -38,8 +87,15 @@
 	  <!-- Any extra fields to be submitted with the form but not sent to Razorpay -->
 	  <input type="hidden" name="shopping_order_id" value="<?php echo $data['notes']['merchant_order_id']?>">
 	</form>
+  </div>
 
-	<div>Footer</div>
+  <div class="right">
+    <h2>About</h2>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+  </div>
+</div>
+
+<div style="background-color:#e5e5e5;text-align:center;padding:10px;margin-top:7px;">Š copyright w3schools.com</div>
+
 </body>
-
 </html>

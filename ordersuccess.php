@@ -14,28 +14,71 @@
 	//mail( 'email4arun@gmail.com', 'Writeneat Demo', 'Your Order has been placed. Thank you' );
 
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writeneat - Handwriting Improvement Kit - Order Confirmation</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+.menu {
+  float:left;
+  width:20%;
+  text-align:center;
+}
+.menu a {
+  background-color:#e5e5e5;
+  padding:8px;
+  margin-top:7px;
+  display:block;
+  width:100%;
+  color:black;
+}
+.main {
+  float:left;
+  width:60%;
+  padding:0 20px;
+}
+.right {
+  background-color:#e5e5e5;
+  float:left;
+  width:20%;
+  padding:15px;
+  margin-top:7px;
+  text-align:center;
+}
 
+@media only screen and (max-width:620px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width:100%;
+  }
+}
+</style>
 
+<?php echo $common->getFBTrackingScript();?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <!--
-    Modified from the Debian original for Ubuntu
-    Last updated: 2016-11-16
-    See: https://launchpad.net/bugs/1288690
-  -->
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Writeneat - Handwriting Improvement Kit - Order Confirmation</title>
-    
-    <?php echo $common->getFBTrackingScript();?>
-  </head>
-  <body>
-  
-  	<script>
-		fbq('track', 'Purchase', {currency: "INR", value: <?php echo $orderDetails['order_amount']; ?>});
-	</script>
-	Thank you for your order. Your order number is <b><?php echo $_SESSION['order_id'];?></b>.
+</head>
+<body style="font-family:Verdana;color:#aaaaaa;">
+<script>
+	fbq('track', 'Purchase', {currency: "INR", value: <?php echo $orderDetails['order_amount']; ?>});
+</script>
+<div style="background-color:#e5e5e5;padding:15px;text-align:center;">
+  <h1>Hello World</h1>
+</div>
+
+<div style="overflow:auto">
+  <div class="menu">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+    <a href="#">Link 4</a>
+  </div>
+
+  <div class="main">
+    Thank you for your order. Your order number is <b><?php echo $_SESSION['order_id'];?></b>.
 	<br/>
 	<div style="text-align:left;" >
 	Your order will be sent to:<br/>
@@ -61,6 +104,16 @@
 	</table>
 	<br/>
 	<a href='index.php'>Home</a>
-  </body>
-</html>
 
+  </div>
+
+  <div class="right">
+    <h2>About</h2>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+  </div>
+</div>
+
+<div style="background-color:#e5e5e5;text-align:center;padding:10px;margin-top:7px;">Š copyright w3schools.com</div>
+
+</body>
+</html>
