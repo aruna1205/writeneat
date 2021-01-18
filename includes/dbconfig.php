@@ -5,6 +5,8 @@ $dbuser = 'root';
 $dbpass = 'rittal';
 $dbname = 'write_neat';
 
+$FBTrackingID = "417100886013592";
+
 
 //These should be commented out in production
 // This is for error reporting

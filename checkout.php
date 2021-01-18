@@ -1,8 +1,8 @@
 <?php
 	ini_set('display_errors', 1);
-
-	require_once('includes/common.php');
 	session_start();
+	require_once('includes/common.php');
+	
 
 	$common = new common();
 
@@ -48,9 +48,13 @@
     	var cgstAmount = <?php echo $cgstAmount; ?>;
     </script>
 
-        
+       <?php echo $common->getFBTrackingScript();?> 
   </head>
   <body>
+  
+	<script>
+		fbq('track', 'AddToCart', {});
+	</script>
 		<div class="container">
 		  
 		  <h2>Order Details</h2>

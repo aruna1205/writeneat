@@ -4,10 +4,12 @@ require_once('db.php');
 class common {
 
 	protected $db;
+	protected $FBTrackingID;
 	
 	public function __construct() {
 		require_once('dbconfig.php');
 		$this->db = new db($dbhost, $dbuser, $dbpass, $dbname, 'utf8');
+		$this->FBTrackingID = $FBTrackingID;
 	}
 
 	public function getOrderDetails() {
@@ -56,46 +58,43 @@ class common {
 	}
 	
 	public function sendOrderPlacementMail($orderDetails) {
-		
-		$header = "From:support@chethanshenoy.in \r\n";
-		$header .= "Cc:anil.gl.gl@gmail.com \r\n";
-		$header .= "MIME-Version: 1.0\r\n";
-		$header .= "Content-type: text/html\r\n"; 
-		
-		$to = $orderDetails['email'];
-		$subject = "Order Confirmation- Order Id: ".$orderDetails['order_id'];
-
-		$message = "<h1>Thank you for your order.</h1>";
-		$message .= "<b>Your order <".$orderDetails['order_id']."> has been placed successfully.</b>";
-		
-		$message .= "<div>";
-		$message .= "Your order will be sent to:<br/>";
-		$message .= "<b>".$orderDetails['name']."<br/>";
-		$message .= "<b>".$orderDetails['address']."<br/>";
-		$message .= "<b>".$orderDetails['city']."<br/>";
-		$message .= "<b>".$orderDetails['state']."<br/>";
-		$message .= "<b>".$orderDetails['pincode']."<br/>";
-		$message .= "<b>Ph:".$orderDetails['phone']."<br/>";
-
-		$message .= "</div>";
-		$message .= "<br/><br/>";
-		$message .= "<table>
-				<tr><th>Order Summary</th></tr>
-				<tr>
-					<td>Item Subtotal:</td> <td>".$orderDetails['order_amount']."</td>
-				</tr>
-				<tr>
-					<td>Shipping & Handling:</td> <td>Free</td>
-				</tr>
-				<tr>
-					<td>Order Total:</td> <td>".$orderDetails['order_amount']."</td>
-				</tr>
-			</table>
-			<br/>";
-		
-
-		//$retval = mail ($to,$subject,$message,$header);
 		try{
+    		$header = "From:support@chethanshenoy.in \r\n";
+    		$header .= "Cc:anil.gl.gl@gmail.com \r\n";
+    		$header .= "MIME-Version: 1.0\r\n";
+    		$header .= "Content-type: text/html\r\n"; 
+    		
+    		$to = $orderDetails['email'];
+    		$subject = "Order Confirmation- Order Id: ".$orderDetails['order_id'];
+    
+    		$message = "<h1>Thank you for your order.</h1>";
+    		$message .= "<b>Your order <".$orderDetails['order_id']."> has been placed successfully.</b>";
+    		
+    		$message .= "<div>";
+    		$message .= "Your order will be sent to:<br/>";
+    		$message .= "<b>".$orderDetails['name']."<br/>";
+    		$message .= "<b>".$orderDetails['address']."<br/>";
+    		$message .= "<b>".$orderDetails['city']."<br/>";
+    		$message .= "<b>".$orderDetails['state']."<br/>";
+    		$message .= "<b>".$orderDetails['pincode']."<br/>";
+    		$message .= "<b>Ph:".$orderDetails['phone']."<br/>";
+    
+    		$message .= "</div>";
+    		$message .= "<br/><br/>";
+    		$message .= "<table>
+    				<tr><th>Order Summary</th></tr>
+    				<tr>
+    					<td>Item Subtotal:</td> <td>".$orderDetails['order_amount']."</td>
+    				</tr>
+    				<tr>
+    					<td>Shipping & Handling:</td> <td>Free</td>
+    				</tr>
+    				<tr>
+    					<td>Order Total:</td> <td>".$orderDetails['order_amount']."</td>
+    				</tr>
+    			</table>
+    			<br/>";
+		
 			$retval = mail ($to,$subject,$message,$header);
 			return true;
 		}
@@ -107,8 +106,23 @@ class common {
 		
 		
 	}
+	
+	public function getFBTrackingScript() {
+		
+		return "<script>
+			!function(f,b,e,v,n,t,s)
+			{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+			n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+			if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+			n.queue=[];t=b.createElement(e);t.async=!0;
+			t.src=v;s=b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t,s)}(window, document,'script',
+			'https://connect.facebook.net/en_US/fbevents.js');
+			fbq('init', '".$this->FBTrackingID."');
+			fbq('track', 'PageView');
+			</script>";
+	}
 
 
 }
 ?>
-

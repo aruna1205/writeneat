@@ -7,7 +7,7 @@
 
 	$common = new common();
 	$orderDetails = $common->getOrderDetails();
-	print_r($orderDetails);
+	//print_r($orderDetails);
 
 
 	$name = $orderDetails['name'];
