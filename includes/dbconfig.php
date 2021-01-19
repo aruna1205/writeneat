@@ -5,7 +5,12 @@ $dbuser = 'root';
 $dbpass = 'rittal';
 $dbname = 'write_neat';
 
-$FBTrackingID = "417100886013592";
+$FBTrackingID = '417100886013592';
+
+$admninUser = 'anilgl';
+$adminSecretKey = 'Digipuush@321!';
+
+$numRowsForReport=20;
 
 
 //These should be commented out in production

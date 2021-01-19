@@ -7,7 +7,7 @@ class common {
 	protected $FBTrackingID;
 	
 	public function __construct() {
-		require_once('dbconfig.php');
+		require('dbconfig.php');
 		$this->db = new db($dbhost, $dbuser, $dbpass, $dbname, 'utf8');
 		$this->FBTrackingID = $FBTrackingID;
 	}
@@ -121,6 +121,40 @@ class common {
 			fbq('init', '".$this->FBTrackingID."');
 			fbq('track', 'PageView');
 			</script>";
+	}
+	
+	public function getReportingOrderDetails($searchBy, $searchKey, $orderStatus, $date, $numRowsForReport, $pageNum, $orderBy, $orderType) {
+		$query = "SELECT * FROM wn_user_order ";
+		$searchSQL =" ";
+		$statusSQL =" ";
+		$dateSQL =" ";
+		$and =" ";
+		$where =" WHERE ";
+		if( !empty($searchBy) && !empty($searchKey) ){
+			$searchSQL = " $and $where $searchBy LIKE '%$searchKey%' ";
+			$where = " ";
+			$and = " AND ";
+		}
+		if( !empty($orderStatus) ){
+			$statusSQL = " $and $where order_status = '$orderStatus' ";
+			$where = " ";
+			$and = " AND ";
+		}
+		if( !empty($date) ){
+			$dateSQL = " $and $where date(date_time) = '$date' ";
+			$where = " ";
+			$and = " AND ";
+		}
+		$query .= $searchSQL.$statusSQL.$dateSQL;
+		echo "<pre>$query</pre>";
+		
+		$orderDetails = $this->db->query($query)->fetchAll();
+		if(!empty($orderDetails)){
+			return $orderDetails;
+		}
+		else{
+			return array();
+		}
 	}
 
 
