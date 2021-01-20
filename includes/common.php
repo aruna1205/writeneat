@@ -123,11 +123,12 @@ class common {
 			</script>";
 	}
 	
-	public function getReportingOrderDetails($searchBy, $searchKey, $orderStatus, $date, $numRowsForReport, $pageNum, $orderBy, $orderType) {
+	public function getReportingOrderDetails($searchBy, $searchKey, $orderStatus, $fromDate, $toDate, $numRowsForReport, $pageNum, $orderBy, $orderType) {
 		$query = "SELECT * FROM wn_user_order ";
 		$searchSQL =" ";
 		$statusSQL =" ";
-		$dateSQL =" ";
+		$fromDateSQL =" ";
+		$toDateSQL =" ";
 		$and =" ";
 		$where =" WHERE ";
 		if( !empty($searchBy) && !empty($searchKey) ){
@@ -140,13 +141,18 @@ class common {
 			$where = " ";
 			$and = " AND ";
 		}
-		if( !empty($date) ){
-			$dateSQL = " $and $where date(date_time) = '$date' ";
+		if( !empty($fromDate) ){
+			$fromDateSQL = " $and $where date(date_time) >= '$fromDate' ";
 			$where = " ";
 			$and = " AND ";
 		}
-		$query .= $searchSQL.$statusSQL.$dateSQL;
-		echo "<pre>$query</pre>";
+		if( !empty($toDate) ){
+			$toDateSQL = " $and $where date(date_time) <= '$toDate' ";
+			$where = " ";
+			$and = " AND ";
+		}
+		$query .= $searchSQL.$statusSQL.$fromDateSQL.$toDateSQL;
+		//echo "<pre>$query</pre>";
 		
 		$orderDetails = $this->db->query($query)->fetchAll();
 		if(!empty($orderDetails)){

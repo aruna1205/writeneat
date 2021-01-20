@@ -30,7 +30,6 @@ require_once('includes/dbconfig.php');
 	require_once('includes/common.php');
 	$common = new common();
 
-	print_r($_POST);
 	$searchBy = '';
 	if(!empty($_POST['searchby'])){
 		$searchBy = $_POST['searchby'];
@@ -43,19 +42,21 @@ require_once('includes/dbconfig.php');
 	if(!empty($_POST['orderstatus'])){
 		$orderStatus = $_POST['orderstatus'];
 	}
-	$date = '';
-	if(!empty($_POST['date'])){
-		$date = $_POST['date'];
+	$fromDate = '';
+	if(!empty($_POST['fromdate'])){
+		$fromDate = $_POST['fromdate'];
 	}
-	
+	$toDate = '';
+	if(!empty($_POST['todate'])){
+		$toDate = $_POST['todate'];
+	}
 	$numRowsForReport='';
 	$pageNum = '';
 	$orderBy = '';
 	$orderType = '';
 
 	
-	$reportDetailsArr = $common->getReportingOrderDetails($searchBy, $searchKey, $orderStatus, $date, $numRowsForReport, $pageNum, $orderBy, $orderType);
-	//$reportDetailsArr = $common->getReportingOrderDetails();
+	$reportDetailsArr = $common->getReportingOrderDetails($searchBy, $searchKey, $orderStatus, $fromDate, $toDate, $numRowsForReport, $pageNum, $orderBy, $orderType);
 	
 ?>
 <!DOCTYPE html>
@@ -107,9 +108,39 @@ require_once('includes/dbconfig.php');
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <script>
-  $( function() {
-    $( "#date" ).datepicker({dateFormat: "yy-mm-dd"});
-  } );
+	  $( function() {
+		  var dateFormat = "yy-mm-dd",
+		  from = $( "#fromdate" )
+		    .datepicker({
+		      defaultDate: "+1w",
+		      changeMonth: true,
+		      numberOfMonths: 2,
+		      dateFormat: "yy-mm-dd"
+		    })
+		    .on( "change", function() {
+		      to.datepicker( "option", "minDate", getDate( this ) );
+		    }),
+		  to = $( "#todate" ).datepicker({
+		    defaultDate: "+1w",
+		    changeMonth: true,
+		    numberOfMonths: 2,
+		    dateFormat: "yy-mm-dd"
+		  })
+		  .on( "change", function() {
+		    from.datepicker( "option", "maxDate", getDate( this ) );
+		  });
+	 
+		function getDate( element ) {
+		  var date;
+		  try {
+		    date = $.datepicker.parseDate( dateFormat, element.value );
+		  } catch( error ) {
+		    date = null;
+		  }
+	 
+		  return date;
+		}
+	} );
   </script>
 
 <?php echo $common->getFBTrackingScript();?>
@@ -169,13 +200,14 @@ require_once('includes/dbconfig.php');
 			</div>
 			<div style="float:left;padding:5px;">
 				Order Status: <select name="orderstatus"><option value="">All</option><option value="PENDING">Pending</option><option value="SUCCESS">Success</option><option value="FAILED">Failed</option></select>
-				Date:<input type="text" name="date" id="date"/>
+				From: <input type="text" name="fromdate" id="fromdate"/> To: <input type="text" name="todate" id="todate"/>
 			</div>
     		<div style="padding:5px;float:left;">
     			<input type="Submit" value="Go" />
     		</div>
     	</div>
     	</form>
+    	<a href="exporttocsv.php?<?php echo "searchkey=$searchKey"; ?>&<?php echo "searchby=$searchBy"; ?>&<?php echo "orderstatus=$orderStatus"; ?>&<?php echo "fromdate=$fromDate"; ?>&<?php echo "todate=$toDate"; ?>"><img src="images/export_csv.png" style="width:40px;height=40px;"></a>
     <div style="width:100%; overflow:scroll;">
     <table style="" border>
 			<tr><th>Name</th><th>Address</th><th>City</th><th>State</th><th>Pincode</th><th>Phone</th><th>Email</th><th>Order Date</th><th>Order Status</th></tr>

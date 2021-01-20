@@ -5,6 +5,8 @@ $dbuser = 'root';
 $dbpass = 'rittal';
 $dbname = 'write_neat';
 
+$baseURL = "localhost/writeneat";
+
 $FBTrackingID = '417100886013592';
 
 $admninUser = 'anilgl';
